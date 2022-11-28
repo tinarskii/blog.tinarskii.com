@@ -1,0 +1,19 @@
+<p>
+  This account belongs to <%= @user.name %>
+</p>
+
+<p>
+  Their articles:
+</p>
+
+<% if @articles %>
+  <% @articles.each do |article| %>
+    <div class="article">
+      <h2><%= link_to article.title, article_path(article) %></h2>
+    </div>
+  <% end %>
+<% else %>
+  <p>
+    Hmm, it looks like you haven't written any articles yet.
+  </p>
+<% end %>

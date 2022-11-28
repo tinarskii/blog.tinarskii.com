@@ -38,6 +38,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v7.0.4, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v7.0.4, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.8.1, ruby-3.1.2-p20) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.18, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bindex (v0.8.1, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.15.0, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, ruby-3.1.2-p20) [gem]" level="application" />
@@ -84,6 +85,7 @@
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v3.4.2, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.5.4, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stimulus-rails (v1.1.1, ruby-3.1.2-p20) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v2.0.21, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.2.1, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.3.0, ruby-3.1.2-p20) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="turbo-rails (v1.3.2, ruby-3.1.2-p20) [gem]" level="application" />
@@ -110,6 +112,9 @@
         <option value="benchmark" />
         <option value="channel" />
         <option value="controller" />
+        <option value="erb:controller" />
+        <option value="erb:mailer" />
+        <option value="erb:scaffold" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -140,6 +145,9 @@
         <option value="benchmark" />
         <option value="channel" />
         <option value="controller" />
+        <option value="erb:controller" />
+        <option value="erb:mailer" />
+        <option value="erb:scaffold" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -369,6 +377,14 @@
                   <RakeTaskImpl description="" fullCommand="stimulus:manifest:update" id="update" />
                 </subtasks>
               </RakeTaskImpl>
+            </subtasks>
+          </RakeTaskImpl>
+          <RakeTaskImpl id="tailwindcss">
+            <subtasks>
+              <RakeTaskImpl description="Build your Tailwind CSS" fullCommand="tailwindcss:build" id="build" />
+              <RakeTaskImpl description="Remove CSS builds" fullCommand="tailwindcss:clobber" id="clobber" />
+              <RakeTaskImpl description="Install Tailwind CSS into the app" fullCommand="tailwindcss:install" id="install" />
+              <RakeTaskImpl description="Watch and build your Tailwind CSS on file changes" fullCommand="tailwindcss:watch" id="watch" />
             </subtasks>
           </RakeTaskImpl>
           <RakeTaskImpl description="Runs all tests in test folder except system ones" fullCommand="test" id="test" />

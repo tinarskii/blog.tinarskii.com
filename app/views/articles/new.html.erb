@@ -1,0 +1,7 @@
+<%= form_with model: @article, url: articles_path, method: :post do |form| %>
+  <%= form.text_field :title, required: true, placeholder: "Title" %><br>
+  <%= form.text_field :cover_url, required: true, placeholder: "Cover URL" %><br>
+  <%= form.text_area :body, required: true, placeholder: "Content" %><br>
+  <%= form.text_field :tags, required: true, placeholder: "Tags (Seperated with commas)" %>
+  <%= form.submit "Create" %>
+<% end %>
