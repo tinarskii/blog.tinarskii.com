@@ -1,9 +1,68 @@
-<%= form_with model: @user, url: users_path do |form| %>
-  <%= form.email_field :email, required: true, placeholder: "Email" %><br>
-  <%= form.text_field :username, required: true, placeholder: "Username" %><br>
-  <%= form.text_field :name, required: false, placeholder: "Name" %><br>
-  <%= form.text_area :bio, required: false, placeholder: "Bio" %><br>
-  <%= form.password_field :password, required: true, placeholder: "Password" %><br>
-  <%= link_to "Login", new_user_path %>
-  <%= form.submit "Register!" %>
-<% end %>
+<div class="grid h-screen place-items-center my-12 w-full">
+  <%= form_with model:@user, url: users_path, :class => "flex flex-col gap-4 p-12 justify-center bg-base-300 rounded-xl shadow w-1/2" do |form| %>
+    <div class="flex flex-col gap-1">
+      <h1 class="text-4xl font-bold text-center">
+        <%= t('account.signup') %>
+      </h1>
+      <p class="text-sm text-center text-gray-400">
+        <%= t('account.have_account') %>
+        <span class="underline text-blue-500">
+          <%= link_to t('menu.login'), login_path %>
+        </span>
+      </p>
+    </div>
+
+    <div class="flex flex-row gap-2">
+      <!-- Username -->
+      <div class="flex flex-col gap-1 w-full">
+        <label class="label">
+        <span class="label-text">
+          <%= t('account.enter_username') %>
+        </span>
+        </label>
+        <%= form.text_field :username, :class => "input input-bordered w-full" %>
+      </div>
+      <!-- Profile name -->
+      <div class="flex flex-col gap-1 w-full">
+        <label class="label">
+        <span class="label-text">
+          <%= t('account.enter_name') %>
+        </span>
+        </label>
+        <%= form.text_field :name, :class => "input input-bordered w-full" %>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="flex flex-col gap-1">
+      <label class="label">
+        <span class="label-text">
+          <%= t('account.enter_email') %>
+        </span>
+      </label>
+      <%= form.email_field :email, required: true, :class => "input input-bordered w-full" %>
+    </div>
+
+    <!-- Password -->
+    <div class="flex flex-col gap-1">
+      <label class="label">
+        <span class="label-text">
+          <%= t('account.enter_password') %>
+        </span>
+      </label>
+      <%= form.password_field :password, required: true, :class => "textarea textarea-bordered" %>
+    </div>
+
+    <!-- Bio -->
+    <div class="flex flex-col gap-1">
+      <label class="label">
+        <span class="label-text">
+          <%= t('account.enter_bio') %>
+        </span>
+      </label>
+      <%= form.text_area :bio, :class => "textarea textarea-bordered" %>
+    </div>
+
+    <%= link_to t('account.signup'), register_path, :class => "btn btn-primary w-full" %>
+  <% end %>
+</div>

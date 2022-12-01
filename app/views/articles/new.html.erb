@@ -1,7 +1,64 @@
-<%= form_with model: @article, url: articles_path, method: :post do |form| %>
-  <%= form.text_field :title, required: true, placeholder: "Title" %><br>
-  <%= form.text_field :cover_url, required: true, placeholder: "Cover URL" %><br>
-  <%= form.text_area :body, required: true, placeholder: "Content" %><br>
-  <%= form.text_field :tags, required: true, placeholder: "Tags (Seperated with commas)" %>
-  <%= form.submit "Create" %>
-<% end %>
+<div class="grid lg:w-[97vw] lg:grid-cols-2 grid-cols-1 place-items-center gap-1 my-12">
+  <div class="flex flex-col w-full justify-center items-center">
+    <%= form_with class: "flex flex-col gap-2 justify-center lg:max-w-lg w-full", model: @article, url: articles_path, method: :post do |form| %>
+      <%= form.text_field :title, class: "input input-bordered w-full", id: "title", required: true, placeholder: "Title *" %><br>
+      <%= form.text_field :cover_url, class: "input input-bordered w-full", id: "cover", required: true, placeholder: "Cover URL (Optional)" %><br>
+      <%= form.text_area :body, class: "textarea textarea-bordered w-full", id: "content", required: true, placeholder: "Content *" %><br>
+      <%= form.text_field :tags, class: "input input-bordered w-full", required: true, placeholder: "Tags * (Seperated with commas)" %>
+      <%= form.submit "Create", class: "btn btn-primary w-full" %>
+    <% end %>
+  </div>
+  <div class="h-full w-full p-12 flex flex-col gap-4 rounded-lg bg-base-300">
+    <img
+      src="https://placehold.co/500x500"
+      alt="Article <%= @article.id %> cover image"
+      class="w-full object-cover rounded-lg max-w-none"
+      style="max-width: none; width: 100%; height: 200px;"
+    >
+    <h1 class="text-3xl font-bold font-kanit break-words" id="article-name">
+      My New Article
+    </h1>
+    <p class="break-words" id="article-body">
+      Lorem ipsum...
+    </p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/jitbit/HtmlSanitizer@master/HtmlSanitizer.js"></script>
+<script>
+  HtmlSanitizer.AllowedTags['H1'] = true;
+  HtmlSanitizer.AllowedTags['P'] = true;
+  let cover = document.getElementById("cover");
+  let title = document.getElementById("title");
+  let content = document.getElementById("content");
+  let articleName = document.getElementById("article-name");
+  let articlePreview = document.getElementById("article-body");
+
+  cover.addEventListener("input", () => {
+    document.querySelector("img").src = cover.value;
+  });
+
+  title.addEventListener("input", () => {
+    articleName.innerText = title.value;
+  });
+
+  content.addEventListener("input", () => {
+    articlePreview.innerHTML = HtmlSanitizer.SanitizeHtml(content.value);
+  });
+
+  articleName.innerText = title.value;
+  articlePreview.innerHTML = HtmlSanitizer.SanitizeHtml(content.value);
+  document.querySelector("img").src = cover.value;
+</script>
+<script>
+  const tx = document.getElementsByTagName("textarea");
+  for (let i = 0; i < tx.length; i++) {
+    tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+    tx[i].addEventListener("input", OnInput, false);
+  }
+
+  function OnInput() {
+    this.style.height = 0;
+    this.style.height = (this.scrollHeight) + "px";
+  }
+</script>

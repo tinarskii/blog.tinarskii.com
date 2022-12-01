@@ -1,3 +1,17 @@
-Hello, <%= current_user.name %>!
-<%= link_to "My Articles", my_articles_path %>
-<%= button_to "Sign out", session_path(@current_user), method: :delete %>
+<div class="flex flex-col gap-4 m-12">
+  <h1 class="text-3xl font-krona">
+    Welcome, <%= current_user.name %>
+  </h1>
+  <div class="flex w-full gap-2">
+    <a href="/articles/new">
+      <button class="btn btn-primary">
+        Create new articles
+      </button>
+    </a>
+    <a href="/logout">
+      <button class="btn btn-error">
+        Logout
+      </button>
+    </a>
+  </div>
+</div>

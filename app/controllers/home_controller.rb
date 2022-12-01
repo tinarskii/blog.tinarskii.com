@@ -5,5 +5,7 @@ class HomeController < ApplicationController
     if is_logged_in?
       @current_user = current_user
     end
+
+    @articles = Article.all
   end
 end

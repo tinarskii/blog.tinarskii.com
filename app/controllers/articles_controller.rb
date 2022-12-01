@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-
+  skip_before_action :require_login, only: [:index, :show]
   def new
     @article = Article.new
   end

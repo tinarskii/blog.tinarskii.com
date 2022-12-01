@@ -15,14 +15,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.valid?
-      session[:user_id] = @user.id
-      @user.save
-      redirect_to @user
+    if User.find_by(username: params[:user][:username])
+      redirect_to new_user_path, notice: "Username is already taken."
+    elsif User.find_by(email: params[:user][:email])
+      redirect_to new_user_path, notice: "Email is already taken."
     else
-      flash[:error] = "Oops! Something went wrong. Please try again."
-      redirect_to new_user_path
+      @user = User.new(user_params)
+      if @user.valid?
+        session[:user_id] = @user.id
+        @user.save
+        redirect_to @user
+      else
+        redirect_to register_path, notice: "Oops! Something went wrong. Please try again later."
+      end
     end
   end
 

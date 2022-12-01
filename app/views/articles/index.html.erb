@@ -1,11 +1,17 @@
-<h1>Articles</h1>
+<div class="flex flex-col gap-4 md:m-12">
+  <h1 class="text-3xl font-krona text-bold">Articles</h1>
+  <ul class="flex flex-col gap-2">
+    <% @articles.each do |article| %>
+      <li>
+        <a href="/articles/<%= article.id %>">
+          <i><%= article.title %></i>
+          <span class="text-gray-400">
+           (By <%= User.find(article.author_id).name %>)
+          </span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <a href="/articles/<%= article.id %>">
-        <%= article.title %>
-      </a>
-    </li>
-  <% end %>
-</ul>
+<script type="text/javascript" src = "../../assets/froala_editor.pkgd.min.js"></script>

@@ -3,6 +3,9 @@
   <head>
     <title>Blog of Tinarskii</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Krona+One&family=Noto+Emoji&family=Sarabun&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -11,8 +14,37 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+  <!-- Navigation -->
+  <div class="navbar bg-base-300">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-2xl font-krona" href="/">
+        TINARSKII
+      </a>
+    </div>
+    <div class="flex-none">
+      <p>
+        <% if @current_user %>
+          <a class="btn btn-ghost normal-case text-sm font-krona" href="/my">
+            <%= t('my_account') %>
+          </a>
+        <% else %>
+          <a class="btn btn-ghost normal-case text-sm font-krona" href="/login">Login</a>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <%= yield %>
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+    <div>
+      <p>
+        Copyright &copy; 2022
+        <span class="font-krona">
+          TINARSKII
+        </span>
+        — All rights reserved
+      </p>
+    </div>
+  </footer>
   </body>
 </html>
