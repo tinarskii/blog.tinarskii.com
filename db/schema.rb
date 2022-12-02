@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_142436) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_02_144021) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "cover_url"
@@ -18,6 +18,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_142436) do
     t.integer "author_id"
     t.text "tags"
     t.text "comments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "buddies", force: :cascade do |t|
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

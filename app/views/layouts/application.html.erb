@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Krona+One&family=Noto+Emoji&family=Sarabun&display=swap" rel="stylesheet">
-    <%= csrf_meta_tags %>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Kanit&family=Krona+One&family=Noto+Emoji&family=Sarabun&display=swap" rel="stylesheet">     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
@@ -25,11 +24,11 @@
     <div class="flex-none">
       <p>
         <% if @current_user %>
-          <a class="btn btn-ghost normal-case text-sm font-krona" href="/my">
+          <a class="btn btn-ghost normal-case text-sm font-krona" href=<%= my_path %>>
             <%= t('my_account') %>
           </a>
         <% else %>
-          <a class="btn btn-ghost normal-case text-sm font-krona" href="/login">Login</a>
+          <a class="btn btn-ghost normal-case text-sm font-krona" href=<%= login_path %>>Login</a>
         <% end %>
       </p>
     </div>

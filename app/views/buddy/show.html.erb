@@ -1,0 +1,112 @@
+<script src="https://pixijs.download/release/pixi.js"></script>
+
+<div class="grid h-screen w-screen mx-auto bg-white">
+  <div class="flex flex-col gap-1 items-center my-12 w-full">
+      <%= form_with url: buddy_path, class: "flex flex-col gap-none w-full max-w-lg" do |form| %>
+      <label class="label">
+      <span class="label-text font-itim text-black text-xl">
+        เขียนบอกบัดดี้กันเถอะ
+      </span>
+      </label>
+      <%= form.text_field :content, class: "w-full bg-white border-4 rounded-lg border-black font-itim text-black", placeholder: "เพื่อนน๊อตชอบกินผู้ขาย..." %>
+      <% end %>
+  </div>
+  <div id="canvasDiv"></div>
+</div>
+
+<script>
+  let app = new PIXI.Application({ width: window.innerWidth, height: 400, background: "#FFFFFF" });
+document.getElementById("canvasDiv").appendChild(app.view);
+
+  fetch("/game/buddy/all")
+    .then(response => response.json())
+    .then(data => {
+      const text = data.map(buddy => buddy.content);
+
+      text.forEach((text, index) => {
+        // Random rotation (5 deg), and font size
+        const rotation = Math.random() * 0.1 - 0.05;
+        const fontSize = Math.random() * 32 + 16;
+
+        // Create a new Text object
+        const textObject = new PIXI.Text(text, {
+          fontFamily: "Itim",
+          fontSize: fontSize,
+          fill: "black",
+          align: "center",
+          wordWrap: true,
+          wordWrapWidth: 440
+        });
+
+        // Set the text object's anchor point to the start of the text
+        textObject.anchor.set(0, 0);
+
+        // Set the text object's rotation
+        textObject.rotation = rotation
+
+        // Set the text object's position to a random point on the canvas
+        textObject.x = Math.random() * (app.screen.width - textObject.width);
+        textObject.y = Math.random() * (app.screen.height - textObject.height);
+
+        // Make text not overlapping with each other
+        for (let i = 0; i < index; i++) {
+          const otherText = app.stage.children[i];
+          const hit = hitTestRectangle(textObject, otherText);
+          if (hit) {
+            textObject.x = Math.random() * (app.screen.width - textObject.width);
+            textObject.y = Math.random() * (app.screen.height - textObject.height);
+            i = -1;
+          }
+        }
+
+        function hitTestRectangle(r1, r2) {
+          //Define the variables we'll need to calculate
+          let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+
+          //hit will determine whether there's a collision
+          hit = false;
+
+          //Find the center points of each sprite
+          r1.centerX = r1.x + r1.width / 2;
+          r1.centerY = r1.y + r1.height / 2;
+          r2.centerX = r2.x + r2.width / 2;
+          r2.centerY = r2.y + r2.height / 2;
+
+          //Find the half-widths and half-heights of each sprite
+          r1.halfWidth = r1.width / 2;
+          r1.halfHeight = r1.height / 2;
+          r2.halfWidth = r2.width / 2;
+          r2.halfHeight = r2.height / 2;
+
+          //Calculate the distance vector between the sprites
+          vx = r1.centerX - r2.centerX;
+          vy = r1.centerY - r2.centerY;
+
+          //Figure out the combined half-widths and half-heights
+          combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+          combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+
+          //Check for a collision on the x axis
+          if (Math.abs(vx) < combinedHalfWidths) {
+            //A collision might be occuring. Check for a collision on the y axis
+            if (Math.abs(vy) < combinedHalfHeights) {
+              //There's definitely a collision happening
+              hit = true;
+            } else {
+              //There's no collision on the y axis
+              hit = false;
+            }
+          } else {
+            //There's no collision on the x axis
+            hit = false;
+          }
+
+          //`hit` will be either `true` or `false`
+          return hit;
+        }
+
+        // Add the text object to the stage
+        app.stage.addChild(textObject);
+      });
+    });
+</script>
